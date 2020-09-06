@@ -18,6 +18,10 @@
 !/tmp/.keep
 
 /node_modules
-/yarn-error.log
+/yarn-error.
 
+#Ignore Byebug command history file.
 .byebug_history
+
+#Ignore Spring files.
+/spring/*.pid
