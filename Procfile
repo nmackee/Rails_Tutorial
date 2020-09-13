@@ -1,0 +1,1 @@
+web: bundle exec pouma -C config/puma.rb
