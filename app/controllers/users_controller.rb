@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   def show
     @user = User.find(params[:id])
     #debugger
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) #実装は終わっていないことに注意
     if @user.save
+      log_in @user
       flash[:success] = "Welcom to the Sample App!"
       #redirect_to user_url(@user)
       redirect_to @user
@@ -21,9 +23,9 @@ class UsersController < ApplicationController
   end
   
   private
-  
-   def user_params
-     params.require(:user).permit(:name, :email, :password, 
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, 
                       :password_confirmation)
-   end
+  end
 end
