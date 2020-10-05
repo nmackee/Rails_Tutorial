@@ -10,6 +10,13 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
   end
   
+  test "count relationships" do
+    log_in_as(@user)
+    get root_path
+    assert_match @user.active_relationships.count.to_s, response.body
+    assert_match @user.passive_relationships.count.to_s, response.body
+  end
+  
   test "profile display" do
     get user_path(@user)
     assert_template 'users/show'
@@ -21,5 +28,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     @user.microposts.paginate(page: 1).each do |micropost|
       assert_match micropost.content, response.body
     end
+    assert_match @user.active_relationships.count.to_s, response.body
+    assert_match @user.passive_relationships.count.to_s, response.body
   end
 end
